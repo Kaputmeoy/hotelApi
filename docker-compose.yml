@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # 1. Сервис базы данных PostgreSQL
+  postgres:
+    image: postgres:15-alpine
+    container_name: hotelpg_db
+    restart: always
+    environment:
+      POSTGRES_USER: hotel_admin
+      POSTGRES_PASSWORD: secret_password # Замени на надежный пароль
+      POSTGRES_DB: hotelpg
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - glamping_network
+
+  # 2. Сервис pgAdmin (Панель управления БД, опционально)
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: hotelpg_admin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@glamping.ru
+      PGADMIN_DEFAULT_PASSWORD: admin_password # Замени на свой
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - glamping_network
+
+# Объявление томов (Volumes)
+volumes:
+  postgres_data:
+
+# Объявление сетей (Networks)
+networks:
+  glamping_network:
+    driver: bridge
