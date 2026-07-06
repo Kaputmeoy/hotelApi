@@ -1,0 +1,187 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// --- СУЩНОСТИ ДОМИКОВ И ГОСТЕЙ ---
+
+model House {
+  id          Int            @id @default(autoincrement()) // ID 1-8
+  number      Int            @unique
+  deviceToken String         @unique @map("device_token")
+  
+  // Связи
+  allSessions GuestSession[] @relation("HouseAllSessions")
+  tasks       Task[]
+
+  @@map("houses")
+}
+
+model GuestSession {
+  id           String        @id @default(uuid())
+  isActive     Boolean       @default(true) @map("is_active") // Флаг для быстрого поиска текущей сессии
+  checkInDate  DateTime      @default(now()) @map("check_in_date")
+  checkOutDate DateTime?     @map("check_out_date")
+  
+  // Связи
+  houseId      Int           @map("house_id")
+  house        House         @relation("HouseAllSessions", fields: [houseId], references: [id])
+  messages     ChatMessage[]
+  tasks        Task[]
+
+  // Индекс для мгновенного поиска активной сессии конкретного домика
+  @@index([houseId, isActive]) 
+  @@map("guest_sessions")
+}
+
+// --- ПЕРСОНАЛ И РОЛИ (Восстановлено) ---
+
+model Role {
+  id          Int    @id @default(autoincrement())
+  name        String @unique
+  permissions Json   // Общие права для всех пользователей этой роли
+  
+  users       User[]
+
+  @@map("roles")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  username     String        @unique
+  passwordHash String        @map("password_hash")
+  refreshToken String?       @map("refresh_token") // Для хранения JWT refresh-токена
+  
+  // Связи
+  roleId       Int           @map("role_id")
+  role         Role          @relation(fields: [roleId], references: [id])
+  messages     ChatMessage[]
+
+  @@map("users")
+}
+
+// --- УСЛУГИ, ЗАДАЧИ И ЕДА (Восстановлено) ---
+
+model Service {
+  id           Int      @id @default(autoincrement())
+  name         String
+  description  String?
+  isActive     Boolean  @default(true) @map("is_active")
+  requiresTime Boolean  @default(false) @map("requires_time")
+  priceInfo    Json?    @map("price_info")
+ schema       Json?    @map("json_schema")
+  
+  tasks        Task[]
+
+  @@map("services")
+}
+
+model Task {
+  id            String          @id @default(uuid())
+  status        TaskStatus      @default(NEW)
+  requestedTime DateTime?       @map("requested_time")
+  details       Json?           // Для трансфера, комментариев и т.д.
+  priceFix      Int             @map("price_fix") // Фиксация стоимости самой услуги
+  createdAt     DateTime        @default(now()) @map("created_at")
+
+  // Связи
+  houseId       Int             @map("house_id")
+  house         House           @relation(fields: [houseId], references: [id])
+  sessionId     String          @map("session_id")
+  session       GuestSession    @relation(fields: [sessionId], references: [id])
+  serviceId     Int             @map("service_id")
+  service       Service         @relation(fields: [serviceId], references: [id])
+
+  foodOrderItems FoodOrderItem[] // Возвращена связь с корзиной еды
+
+  // Индексы для быстрого поиска задач по домику или сессии
+  @@index([houseId])
+  @@index([sessionId])
+  @@index([serviceId])
+  @@map("tasks")
+}
+
+model FoodOrderItem {
+  id           String   @id @default(uuid())
+  quantity     Int
+  priceAtOrder Int      @map("price_at_order") // Защита истории: цена блюда на момент заказа
+  
+  taskId       String   @map("task_id")
+  task         Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  menuItemId   String   @map("menu_item_id")
+  menuItem     MenuItem @relation(fields: [menuItemId], references: [id])
+
+  @@index([taskId])
+  @@map("food_order_items")
+}
+
+model MealType {
+  id        Int        @id @default(autoincrement())
+  name      String     // Завтрак, Обед
+  startTime DateTime   @map("start_time") @db.Time()
+  endTime   DateTime   @map("end_time") @db.Time()
+  isActive  Boolean    @default(true) @map("is_active")
+  
+  menuItems MenuItem[] // Неявная связь многие-ко-многим
+
+  @@map("meal_types")
+}
+
+model MenuItem {
+  id          String          @id @default(uuid())
+  name        String
+  description String?
+  imageUrl    String?         @map("image_url")
+  price       Int             // В копейках/центах
+  isAvailable Boolean         @default(true) @map("is_available")
+  
+  mealTypes   MealType[]      // Неявная связь многие-ко-многим
+  orderItems  FoodOrderItem[]
+
+  @@map("menu_items")
+}
+
+// --- КОММУНИКАЦИИ И НАСТРОЙКИ ---
+
+model ChatMessage {
+  id         String     @id @default(uuid())
+  senderType SenderType @map("sender_type")
+  text       String     @db.Text
+  isRead     Boolean    @default(false) @map("is_read")
+  createdAt  DateTime   @default(now()) @map("created_at")
+
+  // Связи
+  sessionId  String       @map("session_id")
+  session    GuestSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  staffId    String?      @map("staff_id")
+  staff      User?        @relation(fields: [staffId], references: [id]) // Если ответил админ
+
+  @@index([sessionId])
+  @@map("chat_messages")
+}
+
+model Setting {
+  key      String  @id
+  value    String  @db.Text
+  imageUrl String? @map("image_url")
+
+  @@map("settings")
+}
+
+// --- ENUMS ---
+
+enum TaskStatus {
+  NEW
+  IN_PROGRESS
+  DONE
+  CANCELLED
+}
+
+enum SenderType {
+  GUEST
+  STAFF
+}

@@ -221,8 +221,8 @@ export type MenuItemWhereInput = {
   imageUrl?: Prisma.StringNullableFilter<'MenuItem'> | string | null;
   price?: Prisma.IntFilter<'MenuItem'> | number;
   isAvailable?: Prisma.BoolFilter<'MenuItem'> | boolean;
-  mealTypes?: Prisma.MealTypeListRelationFilter;
   orderItems?: Prisma.FoodOrderItemListRelationFilter;
+  mealTypes?: Prisma.MealTypeListRelationFilter;
 };
 
 export type MenuItemOrderByWithRelationInput = {
@@ -232,8 +232,8 @@ export type MenuItemOrderByWithRelationInput = {
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder;
   price?: Prisma.SortOrder;
   isAvailable?: Prisma.SortOrder;
-  mealTypes?: Prisma.MealTypeOrderByRelationAggregateInput;
   orderItems?: Prisma.FoodOrderItemOrderByRelationAggregateInput;
+  mealTypes?: Prisma.MealTypeOrderByRelationAggregateInput;
 };
 
 export type MenuItemWhereUniqueInput = Prisma.AtLeast<
@@ -247,8 +247,8 @@ export type MenuItemWhereUniqueInput = Prisma.AtLeast<
     imageUrl?: Prisma.StringNullableFilter<'MenuItem'> | string | null;
     price?: Prisma.IntFilter<'MenuItem'> | number;
     isAvailable?: Prisma.BoolFilter<'MenuItem'> | boolean;
-    mealTypes?: Prisma.MealTypeListRelationFilter;
     orderItems?: Prisma.FoodOrderItemListRelationFilter;
+    mealTypes?: Prisma.MealTypeListRelationFilter;
   },
   'id'
 >;
@@ -288,8 +288,8 @@ export type MenuItemCreateInput = {
   imageUrl?: string | null;
   price: number;
   isAvailable?: boolean;
-  mealTypes?: Prisma.MealTypeCreateNestedManyWithoutMenuItemsInput;
   orderItems?: Prisma.FoodOrderItemCreateNestedManyWithoutMenuItemInput;
+  mealTypes?: Prisma.MealTypeCreateNestedManyWithoutMenuItemsInput;
 };
 
 export type MenuItemUncheckedCreateInput = {
@@ -299,8 +299,8 @@ export type MenuItemUncheckedCreateInput = {
   imageUrl?: string | null;
   price: number;
   isAvailable?: boolean;
-  mealTypes?: Prisma.MealTypeUncheckedCreateNestedManyWithoutMenuItemsInput;
   orderItems?: Prisma.FoodOrderItemUncheckedCreateNestedManyWithoutMenuItemInput;
+  mealTypes?: Prisma.MealTypeUncheckedCreateNestedManyWithoutMenuItemsInput;
 };
 
 export type MenuItemUpdateInput = {
@@ -310,8 +310,8 @@ export type MenuItemUpdateInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   price?: Prisma.IntFieldUpdateOperationsInput | number;
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean;
-  mealTypes?: Prisma.MealTypeUpdateManyWithoutMenuItemsNestedInput;
   orderItems?: Prisma.FoodOrderItemUpdateManyWithoutMenuItemNestedInput;
+  mealTypes?: Prisma.MealTypeUpdateManyWithoutMenuItemsNestedInput;
 };
 
 export type MenuItemUncheckedUpdateInput = {
@@ -321,8 +321,8 @@ export type MenuItemUncheckedUpdateInput = {
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   price?: Prisma.IntFieldUpdateOperationsInput | number;
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean;
-  mealTypes?: Prisma.MealTypeUncheckedUpdateManyWithoutMenuItemsNestedInput;
   orderItems?: Prisma.FoodOrderItemUncheckedUpdateManyWithoutMenuItemNestedInput;
+  mealTypes?: Prisma.MealTypeUncheckedUpdateManyWithoutMenuItemsNestedInput;
 };
 
 export type MenuItemCreateManyInput = {
@@ -680,15 +680,15 @@ export type MenuItemUncheckedUpdateManyWithoutMealTypesInput = {
  */
 
 export type MenuItemCountOutputType = {
-  mealTypes: number;
   orderItems: number;
+  mealTypes: number;
 };
 
 export type MenuItemCountOutputTypeSelect<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  mealTypes?: boolean | MenuItemCountOutputTypeCountMealTypesArgs;
   orderItems?: boolean | MenuItemCountOutputTypeCountOrderItemsArgs;
+  mealTypes?: boolean | MenuItemCountOutputTypeCountMealTypesArgs;
 };
 
 /**
@@ -706,19 +706,19 @@ export type MenuItemCountOutputTypeDefaultArgs<
 /**
  * MenuItemCountOutputType without action
  */
-export type MenuItemCountOutputTypeCountMealTypesArgs<
+export type MenuItemCountOutputTypeCountOrderItemsArgs<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  where?: Prisma.MealTypeWhereInput;
+  where?: Prisma.FoodOrderItemWhereInput;
 };
 
 /**
  * MenuItemCountOutputType without action
  */
-export type MenuItemCountOutputTypeCountOrderItemsArgs<
+export type MenuItemCountOutputTypeCountMealTypesArgs<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  where?: Prisma.FoodOrderItemWhereInput;
+  where?: Prisma.MealTypeWhereInput;
 };
 
 export type MenuItemSelect<
@@ -731,8 +731,8 @@ export type MenuItemSelect<
     imageUrl?: boolean;
     price?: boolean;
     isAvailable?: boolean;
-    mealTypes?: boolean | Prisma.MenuItem$mealTypesArgs<ExtArgs>;
     orderItems?: boolean | Prisma.MenuItem$orderItemsArgs<ExtArgs>;
+    mealTypes?: boolean | Prisma.MenuItem$mealTypesArgs<ExtArgs>;
     _count?: boolean | Prisma.MenuItemCountOutputTypeDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['menuItem']
@@ -784,8 +784,8 @@ export type MenuItemOmit<
 export type MenuItemInclude<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  mealTypes?: boolean | Prisma.MenuItem$mealTypesArgs<ExtArgs>;
   orderItems?: boolean | Prisma.MenuItem$orderItemsArgs<ExtArgs>;
+  mealTypes?: boolean | Prisma.MenuItem$mealTypesArgs<ExtArgs>;
   _count?: boolean | Prisma.MenuItemCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type MenuItemIncludeCreateManyAndReturn<
@@ -800,8 +800,8 @@ export type $MenuItemPayload<
 > = {
   name: 'MenuItem';
   objects: {
-    mealTypes: Prisma.$MealTypePayload<ExtArgs>[];
     orderItems: Prisma.$FoodOrderItemPayload<ExtArgs>[];
+    mealTypes: Prisma.$MealTypePayload<ExtArgs>[];
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
@@ -1346,22 +1346,22 @@ export interface Prisma__MenuItemClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: 'PrismaPromise';
-  mealTypes<T extends Prisma.MenuItem$mealTypesArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.MenuItem$mealTypesArgs<ExtArgs>>,
+  orderItems<T extends Prisma.MenuItem$orderItemsArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.MenuItem$orderItemsArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
     | runtime.Types.Result.GetResult<
-        Prisma.$MealTypePayload<ExtArgs>,
+        Prisma.$FoodOrderItemPayload<ExtArgs>,
         T,
         'findMany',
         GlobalOmitOptions
       >
     | Null
   >;
-  orderItems<T extends Prisma.MenuItem$orderItemsArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.MenuItem$orderItemsArgs<ExtArgs>>,
+  mealTypes<T extends Prisma.MenuItem$mealTypesArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.MenuItem$mealTypesArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
     | runtime.Types.Result.GetResult<
-        Prisma.$FoodOrderItemPayload<ExtArgs>,
+        Prisma.$MealTypePayload<ExtArgs>,
         T,
         'findMany',
         GlobalOmitOptions
@@ -1825,32 +1825,6 @@ export type MenuItemDeleteManyArgs<
 };
 
 /**
- * MenuItem.mealTypes
- */
-export type MenuItem$mealTypesArgs<
-  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
-> = {
-  /**
-   * Select specific fields to fetch from the MealType
-   */
-  select?: Prisma.MealTypeSelect<ExtArgs> | null;
-  /**
-   * Omit specific fields from the MealType
-   */
-  omit?: Prisma.MealTypeOmit<ExtArgs> | null;
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.MealTypeInclude<ExtArgs> | null;
-  where?: Prisma.MealTypeWhereInput;
-  orderBy?: Prisma.MealTypeOrderByWithRelationInput | Prisma.MealTypeOrderByWithRelationInput[];
-  cursor?: Prisma.MealTypeWhereUniqueInput;
-  take?: number;
-  skip?: number;
-  distinct?: Prisma.MealTypeScalarFieldEnum | Prisma.MealTypeScalarFieldEnum[];
-};
-
-/**
  * MenuItem.orderItems
  */
 export type MenuItem$orderItemsArgs<
@@ -1875,6 +1849,32 @@ export type MenuItem$orderItemsArgs<
   take?: number;
   skip?: number;
   distinct?: Prisma.FoodOrderItemScalarFieldEnum | Prisma.FoodOrderItemScalarFieldEnum[];
+};
+
+/**
+ * MenuItem.mealTypes
+ */
+export type MenuItem$mealTypesArgs<
+  ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the MealType
+   */
+  select?: Prisma.MealTypeSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the MealType
+   */
+  omit?: Prisma.MealTypeOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.MealTypeInclude<ExtArgs> | null;
+  where?: Prisma.MealTypeWhereInput;
+  orderBy?: Prisma.MealTypeOrderByWithRelationInput | Prisma.MealTypeOrderByWithRelationInput[];
+  cursor?: Prisma.MealTypeWhereUniqueInput;
+  take?: number;
+  skip?: number;
+  distinct?: Prisma.MealTypeScalarFieldEnum | Prisma.MealTypeScalarFieldEnum[];
 };
 
 /**

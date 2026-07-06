@@ -221,8 +221,8 @@ export type FoodOrderItemWhereInput = {
   priceAtOrder?: Prisma.IntFilter<'FoodOrderItem'> | number;
   taskId?: Prisma.StringFilter<'FoodOrderItem'> | string;
   menuItemId?: Prisma.StringFilter<'FoodOrderItem'> | string;
-  task?: Prisma.XOR<Prisma.TaskScalarRelationFilter, Prisma.TaskWhereInput>;
   menuItem?: Prisma.XOR<Prisma.MenuItemScalarRelationFilter, Prisma.MenuItemWhereInput>;
+  task?: Prisma.XOR<Prisma.TaskScalarRelationFilter, Prisma.TaskWhereInput>;
 };
 
 export type FoodOrderItemOrderByWithRelationInput = {
@@ -231,8 +231,8 @@ export type FoodOrderItemOrderByWithRelationInput = {
   priceAtOrder?: Prisma.SortOrder;
   taskId?: Prisma.SortOrder;
   menuItemId?: Prisma.SortOrder;
-  task?: Prisma.TaskOrderByWithRelationInput;
   menuItem?: Prisma.MenuItemOrderByWithRelationInput;
+  task?: Prisma.TaskOrderByWithRelationInput;
 };
 
 export type FoodOrderItemWhereUniqueInput = Prisma.AtLeast<
@@ -245,8 +245,8 @@ export type FoodOrderItemWhereUniqueInput = Prisma.AtLeast<
     priceAtOrder?: Prisma.IntFilter<'FoodOrderItem'> | number;
     taskId?: Prisma.StringFilter<'FoodOrderItem'> | string;
     menuItemId?: Prisma.StringFilter<'FoodOrderItem'> | string;
-    task?: Prisma.XOR<Prisma.TaskScalarRelationFilter, Prisma.TaskWhereInput>;
     menuItem?: Prisma.XOR<Prisma.MenuItemScalarRelationFilter, Prisma.MenuItemWhereInput>;
+    task?: Prisma.XOR<Prisma.TaskScalarRelationFilter, Prisma.TaskWhereInput>;
   },
   'id'
 >;
@@ -283,8 +283,8 @@ export type FoodOrderItemCreateInput = {
   id?: string;
   quantity: number;
   priceAtOrder: number;
-  task: Prisma.TaskCreateNestedOneWithoutFoodOrderItemsInput;
   menuItem: Prisma.MenuItemCreateNestedOneWithoutOrderItemsInput;
+  task: Prisma.TaskCreateNestedOneWithoutFoodOrderItemsInput;
 };
 
 export type FoodOrderItemUncheckedCreateInput = {
@@ -299,8 +299,8 @@ export type FoodOrderItemUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   quantity?: Prisma.IntFieldUpdateOperationsInput | number;
   priceAtOrder?: Prisma.IntFieldUpdateOperationsInput | number;
-  task?: Prisma.TaskUpdateOneRequiredWithoutFoodOrderItemsNestedInput;
   menuItem?: Prisma.MenuItemUpdateOneRequiredWithoutOrderItemsNestedInput;
+  task?: Prisma.TaskUpdateOneRequiredWithoutFoodOrderItemsNestedInput;
 };
 
 export type FoodOrderItemUncheckedUpdateInput = {
@@ -735,8 +735,8 @@ export type FoodOrderItemSelect<
     priceAtOrder?: boolean;
     taskId?: boolean;
     menuItemId?: boolean;
-    task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>;
     menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>;
+    task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['foodOrderItem']
 >;
@@ -750,8 +750,8 @@ export type FoodOrderItemSelectCreateManyAndReturn<
     priceAtOrder?: boolean;
     taskId?: boolean;
     menuItemId?: boolean;
-    task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>;
     menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>;
+    task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['foodOrderItem']
 >;
@@ -765,8 +765,8 @@ export type FoodOrderItemSelectUpdateManyAndReturn<
     priceAtOrder?: boolean;
     taskId?: boolean;
     menuItemId?: boolean;
-    task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>;
     menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>;
+    task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['foodOrderItem']
 >;
@@ -788,20 +788,20 @@ export type FoodOrderItemOmit<
 export type FoodOrderItemInclude<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>;
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>;
+  task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>;
 };
 export type FoodOrderItemIncludeCreateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>;
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>;
+  task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>;
 };
 export type FoodOrderItemIncludeUpdateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>;
   menuItem?: boolean | Prisma.MenuItemDefaultArgs<ExtArgs>;
+  task?: boolean | Prisma.TaskDefaultArgs<ExtArgs>;
 };
 
 export type $FoodOrderItemPayload<
@@ -809,8 +809,8 @@ export type $FoodOrderItemPayload<
 > = {
   name: 'FoodOrderItem';
   objects: {
-    task: Prisma.$TaskPayload<ExtArgs>;
     menuItem: Prisma.$MenuItemPayload<ExtArgs>;
+    task: Prisma.$TaskPayload<ExtArgs>;
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
@@ -1358,11 +1358,11 @@ export interface Prisma__FoodOrderItemClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: 'PrismaPromise';
-  task<T extends Prisma.TaskDefaultArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.TaskDefaultArgs<ExtArgs>>,
-  ): Prisma.Prisma__TaskClient<
+  menuItem<T extends Prisma.MenuItemDefaultArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.MenuItemDefaultArgs<ExtArgs>>,
+  ): Prisma.Prisma__MenuItemClient<
     | runtime.Types.Result.GetResult<
-        Prisma.$TaskPayload<ExtArgs>,
+        Prisma.$MenuItemPayload<ExtArgs>,
         T,
         'findUniqueOrThrow',
         GlobalOmitOptions
@@ -1372,11 +1372,11 @@ export interface Prisma__FoodOrderItemClient<
     ExtArgs,
     GlobalOmitOptions
   >;
-  menuItem<T extends Prisma.MenuItemDefaultArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.MenuItemDefaultArgs<ExtArgs>>,
-  ): Prisma.Prisma__MenuItemClient<
+  task<T extends Prisma.TaskDefaultArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.TaskDefaultArgs<ExtArgs>>,
+  ): Prisma.Prisma__TaskClient<
     | runtime.Types.Result.GetResult<
-        Prisma.$MenuItemPayload<ExtArgs>,
+        Prisma.$TaskPayload<ExtArgs>,
         T,
         'findUniqueOrThrow',
         GlobalOmitOptions

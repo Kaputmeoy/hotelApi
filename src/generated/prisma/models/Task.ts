@@ -248,10 +248,10 @@ export type TaskWhereInput = {
   houseId?: Prisma.IntFilter<'Task'> | number;
   sessionId?: Prisma.StringFilter<'Task'> | string;
   serviceId?: Prisma.IntFilter<'Task'> | number;
-  house?: Prisma.XOR<Prisma.HouseScalarRelationFilter, Prisma.HouseWhereInput>;
-  session?: Prisma.XOR<Prisma.GuestSessionScalarRelationFilter, Prisma.GuestSessionWhereInput>;
-  service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>;
   foodOrderItems?: Prisma.FoodOrderItemListRelationFilter;
+  house?: Prisma.XOR<Prisma.HouseScalarRelationFilter, Prisma.HouseWhereInput>;
+  service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>;
+  session?: Prisma.XOR<Prisma.GuestSessionScalarRelationFilter, Prisma.GuestSessionWhereInput>;
 };
 
 export type TaskOrderByWithRelationInput = {
@@ -264,10 +264,10 @@ export type TaskOrderByWithRelationInput = {
   houseId?: Prisma.SortOrder;
   sessionId?: Prisma.SortOrder;
   serviceId?: Prisma.SortOrder;
-  house?: Prisma.HouseOrderByWithRelationInput;
-  session?: Prisma.GuestSessionOrderByWithRelationInput;
-  service?: Prisma.ServiceOrderByWithRelationInput;
   foodOrderItems?: Prisma.FoodOrderItemOrderByRelationAggregateInput;
+  house?: Prisma.HouseOrderByWithRelationInput;
+  service?: Prisma.ServiceOrderByWithRelationInput;
+  session?: Prisma.GuestSessionOrderByWithRelationInput;
 };
 
 export type TaskWhereUniqueInput = Prisma.AtLeast<
@@ -284,10 +284,10 @@ export type TaskWhereUniqueInput = Prisma.AtLeast<
     houseId?: Prisma.IntFilter<'Task'> | number;
     sessionId?: Prisma.StringFilter<'Task'> | string;
     serviceId?: Prisma.IntFilter<'Task'> | number;
-    house?: Prisma.XOR<Prisma.HouseScalarRelationFilter, Prisma.HouseWhereInput>;
-    session?: Prisma.XOR<Prisma.GuestSessionScalarRelationFilter, Prisma.GuestSessionWhereInput>;
-    service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>;
     foodOrderItems?: Prisma.FoodOrderItemListRelationFilter;
+    house?: Prisma.XOR<Prisma.HouseScalarRelationFilter, Prisma.HouseWhereInput>;
+    service?: Prisma.XOR<Prisma.ServiceScalarRelationFilter, Prisma.ServiceWhereInput>;
+    session?: Prisma.XOR<Prisma.GuestSessionScalarRelationFilter, Prisma.GuestSessionWhereInput>;
   },
   'id'
 >;
@@ -331,10 +331,10 @@ export type TaskCreateInput = {
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   priceFix: number;
   createdAt?: Date | string;
-  house: Prisma.HouseCreateNestedOneWithoutTasksInput;
-  session: Prisma.GuestSessionCreateNestedOneWithoutTasksInput;
-  service: Prisma.ServiceCreateNestedOneWithoutTasksInput;
   foodOrderItems?: Prisma.FoodOrderItemCreateNestedManyWithoutTaskInput;
+  house: Prisma.HouseCreateNestedOneWithoutTasksInput;
+  service: Prisma.ServiceCreateNestedOneWithoutTasksInput;
+  session: Prisma.GuestSessionCreateNestedOneWithoutTasksInput;
 };
 
 export type TaskUncheckedCreateInput = {
@@ -357,10 +357,10 @@ export type TaskUpdateInput = {
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   priceFix?: Prisma.IntFieldUpdateOperationsInput | number;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  house?: Prisma.HouseUpdateOneRequiredWithoutTasksNestedInput;
-  session?: Prisma.GuestSessionUpdateOneRequiredWithoutTasksNestedInput;
-  service?: Prisma.ServiceUpdateOneRequiredWithoutTasksNestedInput;
   foodOrderItems?: Prisma.FoodOrderItemUpdateManyWithoutTaskNestedInput;
+  house?: Prisma.HouseUpdateOneRequiredWithoutTasksNestedInput;
+  service?: Prisma.ServiceUpdateOneRequiredWithoutTasksNestedInput;
+  session?: Prisma.GuestSessionUpdateOneRequiredWithoutTasksNestedInput;
 };
 
 export type TaskUncheckedUpdateInput = {
@@ -741,9 +741,9 @@ export type TaskCreateWithoutHouseInput = {
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   priceFix: number;
   createdAt?: Date | string;
-  session: Prisma.GuestSessionCreateNestedOneWithoutTasksInput;
-  service: Prisma.ServiceCreateNestedOneWithoutTasksInput;
   foodOrderItems?: Prisma.FoodOrderItemCreateNestedManyWithoutTaskInput;
+  service: Prisma.ServiceCreateNestedOneWithoutTasksInput;
+  session: Prisma.GuestSessionCreateNestedOneWithoutTasksInput;
 };
 
 export type TaskUncheckedCreateWithoutHouseInput = {
@@ -818,9 +818,9 @@ export type TaskCreateWithoutSessionInput = {
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   priceFix: number;
   createdAt?: Date | string;
+  foodOrderItems?: Prisma.FoodOrderItemCreateNestedManyWithoutTaskInput;
   house: Prisma.HouseCreateNestedOneWithoutTasksInput;
   service: Prisma.ServiceCreateNestedOneWithoutTasksInput;
-  foodOrderItems?: Prisma.FoodOrderItemCreateNestedManyWithoutTaskInput;
 };
 
 export type TaskUncheckedCreateWithoutSessionInput = {
@@ -883,9 +883,9 @@ export type TaskCreateWithoutServiceInput = {
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   priceFix: number;
   createdAt?: Date | string;
+  foodOrderItems?: Prisma.FoodOrderItemCreateNestedManyWithoutTaskInput;
   house: Prisma.HouseCreateNestedOneWithoutTasksInput;
   session: Prisma.GuestSessionCreateNestedOneWithoutTasksInput;
-  foodOrderItems?: Prisma.FoodOrderItemCreateNestedManyWithoutTaskInput;
 };
 
 export type TaskUncheckedCreateWithoutServiceInput = {
@@ -949,8 +949,8 @@ export type TaskCreateWithoutFoodOrderItemsInput = {
   priceFix: number;
   createdAt?: Date | string;
   house: Prisma.HouseCreateNestedOneWithoutTasksInput;
-  session: Prisma.GuestSessionCreateNestedOneWithoutTasksInput;
   service: Prisma.ServiceCreateNestedOneWithoutTasksInput;
+  session: Prisma.GuestSessionCreateNestedOneWithoutTasksInput;
 };
 
 export type TaskUncheckedCreateWithoutFoodOrderItemsInput = {
@@ -1001,8 +1001,8 @@ export type TaskUpdateWithoutFoodOrderItemsInput = {
   priceFix?: Prisma.IntFieldUpdateOperationsInput | number;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   house?: Prisma.HouseUpdateOneRequiredWithoutTasksNestedInput;
-  session?: Prisma.GuestSessionUpdateOneRequiredWithoutTasksNestedInput;
   service?: Prisma.ServiceUpdateOneRequiredWithoutTasksNestedInput;
+  session?: Prisma.GuestSessionUpdateOneRequiredWithoutTasksNestedInput;
 };
 
 export type TaskUncheckedUpdateWithoutFoodOrderItemsInput = {
@@ -1035,9 +1035,9 @@ export type TaskUpdateWithoutHouseInput = {
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   priceFix?: Prisma.IntFieldUpdateOperationsInput | number;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  session?: Prisma.GuestSessionUpdateOneRequiredWithoutTasksNestedInput;
-  service?: Prisma.ServiceUpdateOneRequiredWithoutTasksNestedInput;
   foodOrderItems?: Prisma.FoodOrderItemUpdateManyWithoutTaskNestedInput;
+  service?: Prisma.ServiceUpdateOneRequiredWithoutTasksNestedInput;
+  session?: Prisma.GuestSessionUpdateOneRequiredWithoutTasksNestedInput;
 };
 
 export type TaskUncheckedUpdateWithoutHouseInput = {
@@ -1081,9 +1081,9 @@ export type TaskUpdateWithoutSessionInput = {
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   priceFix?: Prisma.IntFieldUpdateOperationsInput | number;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  foodOrderItems?: Prisma.FoodOrderItemUpdateManyWithoutTaskNestedInput;
   house?: Prisma.HouseUpdateOneRequiredWithoutTasksNestedInput;
   service?: Prisma.ServiceUpdateOneRequiredWithoutTasksNestedInput;
-  foodOrderItems?: Prisma.FoodOrderItemUpdateManyWithoutTaskNestedInput;
 };
 
 export type TaskUncheckedUpdateWithoutSessionInput = {
@@ -1127,9 +1127,9 @@ export type TaskUpdateWithoutServiceInput = {
   details?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue;
   priceFix?: Prisma.IntFieldUpdateOperationsInput | number;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+  foodOrderItems?: Prisma.FoodOrderItemUpdateManyWithoutTaskNestedInput;
   house?: Prisma.HouseUpdateOneRequiredWithoutTasksNestedInput;
   session?: Prisma.GuestSessionUpdateOneRequiredWithoutTasksNestedInput;
-  foodOrderItems?: Prisma.FoodOrderItemUpdateManyWithoutTaskNestedInput;
 };
 
 export type TaskUncheckedUpdateWithoutServiceInput = {
@@ -1203,10 +1203,10 @@ export type TaskSelect<
     houseId?: boolean;
     sessionId?: boolean;
     serviceId?: boolean;
-    house?: boolean | Prisma.HouseDefaultArgs<ExtArgs>;
-    session?: boolean | Prisma.GuestSessionDefaultArgs<ExtArgs>;
-    service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>;
     foodOrderItems?: boolean | Prisma.Task$foodOrderItemsArgs<ExtArgs>;
+    house?: boolean | Prisma.HouseDefaultArgs<ExtArgs>;
+    service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>;
+    session?: boolean | Prisma.GuestSessionDefaultArgs<ExtArgs>;
     _count?: boolean | Prisma.TaskCountOutputTypeDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['task']
@@ -1226,8 +1226,8 @@ export type TaskSelectCreateManyAndReturn<
     sessionId?: boolean;
     serviceId?: boolean;
     house?: boolean | Prisma.HouseDefaultArgs<ExtArgs>;
-    session?: boolean | Prisma.GuestSessionDefaultArgs<ExtArgs>;
     service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>;
+    session?: boolean | Prisma.GuestSessionDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['task']
 >;
@@ -1246,8 +1246,8 @@ export type TaskSelectUpdateManyAndReturn<
     sessionId?: boolean;
     serviceId?: boolean;
     house?: boolean | Prisma.HouseDefaultArgs<ExtArgs>;
-    session?: boolean | Prisma.GuestSessionDefaultArgs<ExtArgs>;
     service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>;
+    session?: boolean | Prisma.GuestSessionDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['task']
 >;
@@ -1281,25 +1281,25 @@ export type TaskOmit<
 export type TaskInclude<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  house?: boolean | Prisma.HouseDefaultArgs<ExtArgs>;
-  session?: boolean | Prisma.GuestSessionDefaultArgs<ExtArgs>;
-  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>;
   foodOrderItems?: boolean | Prisma.Task$foodOrderItemsArgs<ExtArgs>;
+  house?: boolean | Prisma.HouseDefaultArgs<ExtArgs>;
+  service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>;
+  session?: boolean | Prisma.GuestSessionDefaultArgs<ExtArgs>;
   _count?: boolean | Prisma.TaskCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type TaskIncludeCreateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   house?: boolean | Prisma.HouseDefaultArgs<ExtArgs>;
-  session?: boolean | Prisma.GuestSessionDefaultArgs<ExtArgs>;
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>;
+  session?: boolean | Prisma.GuestSessionDefaultArgs<ExtArgs>;
 };
 export type TaskIncludeUpdateManyAndReturn<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   house?: boolean | Prisma.HouseDefaultArgs<ExtArgs>;
-  session?: boolean | Prisma.GuestSessionDefaultArgs<ExtArgs>;
   service?: boolean | Prisma.ServiceDefaultArgs<ExtArgs>;
+  session?: boolean | Prisma.GuestSessionDefaultArgs<ExtArgs>;
 };
 
 export type $TaskPayload<
@@ -1307,10 +1307,10 @@ export type $TaskPayload<
 > = {
   name: 'Task';
   objects: {
-    house: Prisma.$HousePayload<ExtArgs>;
-    session: Prisma.$GuestSessionPayload<ExtArgs>;
-    service: Prisma.$ServicePayload<ExtArgs>;
     foodOrderItems: Prisma.$FoodOrderItemPayload<ExtArgs>[];
+    house: Prisma.$HousePayload<ExtArgs>;
+    service: Prisma.$ServicePayload<ExtArgs>;
+    session: Prisma.$GuestSessionPayload<ExtArgs>;
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
@@ -1833,25 +1833,22 @@ export interface Prisma__TaskClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: 'PrismaPromise';
+  foodOrderItems<T extends Prisma.Task$foodOrderItemsArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.Task$foodOrderItemsArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$FoodOrderItemPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >;
   house<T extends Prisma.HouseDefaultArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.HouseDefaultArgs<ExtArgs>>,
   ): Prisma.Prisma__HouseClient<
     | runtime.Types.Result.GetResult<
         Prisma.$HousePayload<ExtArgs>,
-        T,
-        'findUniqueOrThrow',
-        GlobalOmitOptions
-      >
-    | Null,
-    Null,
-    ExtArgs,
-    GlobalOmitOptions
-  >;
-  session<T extends Prisma.GuestSessionDefaultArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.GuestSessionDefaultArgs<ExtArgs>>,
-  ): Prisma.Prisma__GuestSessionClient<
-    | runtime.Types.Result.GetResult<
-        Prisma.$GuestSessionPayload<ExtArgs>,
         T,
         'findUniqueOrThrow',
         GlobalOmitOptions
@@ -1875,16 +1872,19 @@ export interface Prisma__TaskClient<
     ExtArgs,
     GlobalOmitOptions
   >;
-  foodOrderItems<T extends Prisma.Task$foodOrderItemsArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.Task$foodOrderItemsArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
+  session<T extends Prisma.GuestSessionDefaultArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.GuestSessionDefaultArgs<ExtArgs>>,
+  ): Prisma.Prisma__GuestSessionClient<
     | runtime.Types.Result.GetResult<
-        Prisma.$FoodOrderItemPayload<ExtArgs>,
+        Prisma.$GuestSessionPayload<ExtArgs>,
         T,
-        'findMany',
+        'findUniqueOrThrow',
         GlobalOmitOptions
       >
-    | Null
+    | Null,
+    Null,
+    ExtArgs,
+    GlobalOmitOptions
   >;
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.

@@ -212,8 +212,8 @@ export type UserWhereInput = {
   passwordHash?: Prisma.StringFilter<'User'> | string;
   refreshToken?: Prisma.StringNullableFilter<'User'> | string | null;
   roleId?: Prisma.IntFilter<'User'> | number;
-  role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>;
   messages?: Prisma.ChatMessageListRelationFilter;
+  role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>;
 };
 
 export type UserOrderByWithRelationInput = {
@@ -222,8 +222,8 @@ export type UserOrderByWithRelationInput = {
   passwordHash?: Prisma.SortOrder;
   refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder;
   roleId?: Prisma.SortOrder;
-  role?: Prisma.RoleOrderByWithRelationInput;
   messages?: Prisma.ChatMessageOrderByRelationAggregateInput;
+  role?: Prisma.RoleOrderByWithRelationInput;
 };
 
 export type UserWhereUniqueInput = Prisma.AtLeast<
@@ -236,8 +236,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
     passwordHash?: Prisma.StringFilter<'User'> | string;
     refreshToken?: Prisma.StringNullableFilter<'User'> | string | null;
     roleId?: Prisma.IntFilter<'User'> | number;
-    role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>;
     messages?: Prisma.ChatMessageListRelationFilter;
+    role?: Prisma.XOR<Prisma.RoleScalarRelationFilter, Prisma.RoleWhereInput>;
   },
   'id' | 'username'
 >;
@@ -271,8 +271,8 @@ export type UserCreateInput = {
   username: string;
   passwordHash: string;
   refreshToken?: string | null;
-  role: Prisma.RoleCreateNestedOneWithoutUsersInput;
   messages?: Prisma.ChatMessageCreateNestedManyWithoutStaffInput;
+  role: Prisma.RoleCreateNestedOneWithoutUsersInput;
 };
 
 export type UserUncheckedCreateInput = {
@@ -289,8 +289,8 @@ export type UserUpdateInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string;
   passwordHash?: Prisma.StringFieldUpdateOperationsInput | string;
   refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput;
   messages?: Prisma.ChatMessageUpdateManyWithoutStaffNestedInput;
+  role?: Prisma.RoleUpdateOneRequiredWithoutUsersNestedInput;
 };
 
 export type UserUncheckedUpdateInput = {
@@ -664,8 +664,8 @@ export type UserSelect<
     passwordHash?: boolean;
     refreshToken?: boolean;
     roleId?: boolean;
-    role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>;
     messages?: boolean | Prisma.User$messagesArgs<ExtArgs>;
+    role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
   },
   ExtArgs['result']['user']
@@ -716,8 +716,8 @@ export type UserOmit<
 export type UserInclude<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>;
   messages?: boolean | Prisma.User$messagesArgs<ExtArgs>;
+  role?: boolean | Prisma.RoleDefaultArgs<ExtArgs>;
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type UserIncludeCreateManyAndReturn<
@@ -736,8 +736,8 @@ export type $UserPayload<
 > = {
   name: 'User';
   objects: {
-    role: Prisma.$RolePayload<ExtArgs>;
     messages: Prisma.$ChatMessagePayload<ExtArgs>[];
+    role: Prisma.$RolePayload<ExtArgs>;
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
@@ -1256,6 +1256,17 @@ export interface Prisma__UserClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: 'PrismaPromise';
+  messages<T extends Prisma.User$messagesArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.User$messagesArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$ChatMessagePayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >;
   role<T extends Prisma.RoleDefaultArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.RoleDefaultArgs<ExtArgs>>,
   ): Prisma.Prisma__RoleClient<
@@ -1269,17 +1280,6 @@ export interface Prisma__UserClient<
     Null,
     ExtArgs,
     GlobalOmitOptions
-  >;
-  messages<T extends Prisma.User$messagesArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.User$messagesArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
-    | runtime.Types.Result.GetResult<
-        Prisma.$ChatMessagePayload<ExtArgs>,
-        T,
-        'findMany',
-        GlobalOmitOptions
-      >
-    | Null
   >;
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.

@@ -215,8 +215,8 @@ export type GuestSessionWhereInput = {
   checkInDate?: Prisma.DateTimeFilter<'GuestSession'> | Date | string;
   checkOutDate?: Prisma.DateTimeNullableFilter<'GuestSession'> | Date | string | null;
   houseId?: Prisma.IntFilter<'GuestSession'> | number;
-  house?: Prisma.XOR<Prisma.HouseScalarRelationFilter, Prisma.HouseWhereInput>;
   messages?: Prisma.ChatMessageListRelationFilter;
+  house?: Prisma.XOR<Prisma.HouseScalarRelationFilter, Prisma.HouseWhereInput>;
   tasks?: Prisma.TaskListRelationFilter;
 };
 
@@ -226,8 +226,8 @@ export type GuestSessionOrderByWithRelationInput = {
   checkInDate?: Prisma.SortOrder;
   checkOutDate?: Prisma.SortOrderInput | Prisma.SortOrder;
   houseId?: Prisma.SortOrder;
-  house?: Prisma.HouseOrderByWithRelationInput;
   messages?: Prisma.ChatMessageOrderByRelationAggregateInput;
+  house?: Prisma.HouseOrderByWithRelationInput;
   tasks?: Prisma.TaskOrderByRelationAggregateInput;
 };
 
@@ -241,8 +241,8 @@ export type GuestSessionWhereUniqueInput = Prisma.AtLeast<
     checkInDate?: Prisma.DateTimeFilter<'GuestSession'> | Date | string;
     checkOutDate?: Prisma.DateTimeNullableFilter<'GuestSession'> | Date | string | null;
     houseId?: Prisma.IntFilter<'GuestSession'> | number;
-    house?: Prisma.XOR<Prisma.HouseScalarRelationFilter, Prisma.HouseWhereInput>;
     messages?: Prisma.ChatMessageListRelationFilter;
+    house?: Prisma.XOR<Prisma.HouseScalarRelationFilter, Prisma.HouseWhereInput>;
     tasks?: Prisma.TaskListRelationFilter;
   },
   'id'
@@ -281,8 +281,8 @@ export type GuestSessionCreateInput = {
   isActive?: boolean;
   checkInDate?: Date | string;
   checkOutDate?: Date | string | null;
-  house: Prisma.HouseCreateNestedOneWithoutAllSessionsInput;
   messages?: Prisma.ChatMessageCreateNestedManyWithoutSessionInput;
+  house: Prisma.HouseCreateNestedOneWithoutAllSessionsInput;
   tasks?: Prisma.TaskCreateNestedManyWithoutSessionInput;
 };
 
@@ -301,8 +301,8 @@ export type GuestSessionUpdateInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   checkInDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   checkOutDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  house?: Prisma.HouseUpdateOneRequiredWithoutAllSessionsNestedInput;
   messages?: Prisma.ChatMessageUpdateManyWithoutSessionNestedInput;
+  house?: Prisma.HouseUpdateOneRequiredWithoutAllSessionsNestedInput;
   tasks?: Prisma.TaskUpdateManyWithoutSessionNestedInput;
 };
 
@@ -611,8 +611,8 @@ export type GuestSessionCreateWithoutTasksInput = {
   isActive?: boolean;
   checkInDate?: Date | string;
   checkOutDate?: Date | string | null;
-  house: Prisma.HouseCreateNestedOneWithoutAllSessionsInput;
   messages?: Prisma.ChatMessageCreateNestedManyWithoutSessionInput;
+  house: Prisma.HouseCreateNestedOneWithoutAllSessionsInput;
 };
 
 export type GuestSessionUncheckedCreateWithoutTasksInput = {
@@ -657,8 +657,8 @@ export type GuestSessionUpdateWithoutTasksInput = {
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean;
   checkInDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   checkOutDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
-  house?: Prisma.HouseUpdateOneRequiredWithoutAllSessionsNestedInput;
   messages?: Prisma.ChatMessageUpdateManyWithoutSessionNestedInput;
+  house?: Prisma.HouseUpdateOneRequiredWithoutAllSessionsNestedInput;
 };
 
 export type GuestSessionUncheckedUpdateWithoutTasksInput = {
@@ -821,8 +821,8 @@ export type GuestSessionSelect<
     checkInDate?: boolean;
     checkOutDate?: boolean;
     houseId?: boolean;
-    house?: boolean | Prisma.HouseDefaultArgs<ExtArgs>;
     messages?: boolean | Prisma.GuestSession$messagesArgs<ExtArgs>;
+    house?: boolean | Prisma.HouseDefaultArgs<ExtArgs>;
     tasks?: boolean | Prisma.GuestSession$tasksArgs<ExtArgs>;
     _count?: boolean | Prisma.GuestSessionCountOutputTypeDefaultArgs<ExtArgs>;
   },
@@ -874,8 +874,8 @@ export type GuestSessionOmit<
 export type GuestSessionInclude<
   ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  house?: boolean | Prisma.HouseDefaultArgs<ExtArgs>;
   messages?: boolean | Prisma.GuestSession$messagesArgs<ExtArgs>;
+  house?: boolean | Prisma.HouseDefaultArgs<ExtArgs>;
   tasks?: boolean | Prisma.GuestSession$tasksArgs<ExtArgs>;
   _count?: boolean | Prisma.GuestSessionCountOutputTypeDefaultArgs<ExtArgs>;
 };
@@ -895,8 +895,8 @@ export type $GuestSessionPayload<
 > = {
   name: 'GuestSession';
   objects: {
-    house: Prisma.$HousePayload<ExtArgs>;
     messages: Prisma.$ChatMessagePayload<ExtArgs>[];
+    house: Prisma.$HousePayload<ExtArgs>;
     tasks: Prisma.$TaskPayload<ExtArgs>[];
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
@@ -1444,6 +1444,17 @@ export interface Prisma__GuestSessionClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: 'PrismaPromise';
+  messages<T extends Prisma.GuestSession$messagesArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.GuestSession$messagesArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$ChatMessagePayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    | Null
+  >;
   house<T extends Prisma.HouseDefaultArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.HouseDefaultArgs<ExtArgs>>,
   ): Prisma.Prisma__HouseClient<
@@ -1457,17 +1468,6 @@ export interface Prisma__GuestSessionClient<
     Null,
     ExtArgs,
     GlobalOmitOptions
-  >;
-  messages<T extends Prisma.GuestSession$messagesArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.GuestSession$messagesArgs<ExtArgs>>,
-  ): Prisma.PrismaPromise<
-    | runtime.Types.Result.GetResult<
-        Prisma.$ChatMessagePayload<ExtArgs>,
-        T,
-        'findMany',
-        GlobalOmitOptions
-      >
-    | Null
   >;
   tasks<T extends Prisma.GuestSession$tasksArgs<ExtArgs> = {}>(
     args?: Prisma.Subset<T, Prisma.GuestSession$tasksArgs<ExtArgs>>,
